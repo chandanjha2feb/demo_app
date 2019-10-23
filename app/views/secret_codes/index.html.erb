@@ -1,0 +1,28 @@
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<div class="container" style="margin-top:60px">
+  <h3 style="color: #007bff">Secret Code </h3>
+  <%= link_to 'Generate Secret Code', secret_codes_path, class: "btn btn-primary generate_code", method: 'post' %>
+  <div id="code_form">
+    <%= form_tag(:controller => 'secret_codes', :action => 'multiple_secret_code_create') do %>
+        <%= select_tag(:secret_code, options_for_select([['select'],[1], [10], [20], [50], [100]]),  { selected: 10 , class: 'form-control col-sm-2 col-md-2', onchange: "this.form.submit();" })%>
+    <% end %>
+  </div>
+<table class="table table-bordered table-hover secret_code_table">
+  <% @secret_codes.each do |s_c| %>
+      <tr>
+        <td style="background-color: #bdcbf5;">User email: <%= s_c.user.present? ? s_c.user.email : 'No User assigned' %></td>
+        <td style="background-color: #bdcbf5;">Secret Code: <%= s_c.secret_code %></td>
+      </tr>
+  <% end %>
+</table>
+<%= link_to 'Home', root_path, class: "btn btn-primary" %>
+</div>
+<style media="screen">
+  .generate_code {
+    float: right;
+    clear: both;
+  }
+  .secret_code_table{
+    margin-top: 40px;
+  }
+</style>
